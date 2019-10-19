@@ -15,13 +15,20 @@ spec:
       containers:
       - name: ${WORKLOAD_NAME}
         image: ${IMAGE}
+%{ if ENV_VARS != null ~}
         env:
 %{ for key in keys(ENV_VARS) ~}
         - name: ${key}
           value: "${ENV_VARS[key]}"
 %{ endfor ~}
+%{ endif ~}
+%{ if CMD != null ~}
+        command: ["${CMD}"]
+        args: [${CMD_ARGS}]
+%{ endif ~}
 ---
 
+%{ if SERVICE_PORT > 0 ~}
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,3 +41,4 @@ spec:
       port: ${SERVICE_PORT}
   type: ClusterIP
 ---
+%{ endif ~}

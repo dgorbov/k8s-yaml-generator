@@ -17,16 +17,35 @@ variable "image" {
 variable "service_port" {
   description   = "Which port to open for this service."
   type          = number
+  default       = -1
 }
 
 variable "env_vars" {
   description   = "Envirment variables that will be passed to container."
   type          = map(string)
-  default       = {}
+  default       = null
 }
 
 variable "output_path" {
   description   = "Output path for generated workload yaml file. Should end in a forward slash `/`."
   type          = string
   default       = "out/"
+}
+
+variable "add_cmd" {
+  description   = "Set to true if pod has to launch with command and args"
+  type          = bool
+  default       = false
+}
+
+variable "comand" {
+  description   = "Command name to execute on pod start."
+  type          = string
+  default       = null
+}
+
+variable "args" {
+  description   = "Command args."
+  type          = string
+  default       = null
 }

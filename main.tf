@@ -8,7 +8,10 @@ resource "local_file" "this" {
                             REPLICAS_COUNT = var.replicas_count,
                             IMAGE          = var.image,
                             SERVICE_PORT   = var.service_port,
-                            ENV_VARS       = var.env_vars
+                            ENV_VARS       = var.env_vars,
+                            ADD_CMD        = var.comand != null,
+                            CMD            = var.comand,
+                            CMD_ARGS       = var.args
                           })
 
   filename = local.output_workload_path
